@@ -3,7 +3,10 @@
 
 from django.test import TestCase
 from django.test.client import Client
-from django.template import TemplateDoesNotExist
+
+from django.conf import settings
+from django.http import HttpRequest
+from django.template import TemplateDoesNotExist, RequestContext
 
 
 from t42cc.models import Person, RequestModel
@@ -44,3 +47,13 @@ class T42ccTests(TestCase):
                   self.client.get, wrong_path)
         wrong_path_reqs = RequestModel.objects.filter(path=wrong_path)
         self.assertTrue(wrong_path_reqs.count() > 0)
+
+    def test_context_processor(self):
+        """Test context_processors.django_settings
+        """
+        processors = settings.TEMPLATE_CONTEXT_PROCESSORS
+        self.assertIn('t42cc.context_processors.django_settings', processors)
+
+        #check for availability of django_settings attribute in context
+        context = RequestContext(HttpRequest())
+        self.assertTrue(context.get('django_settings') is not None)
