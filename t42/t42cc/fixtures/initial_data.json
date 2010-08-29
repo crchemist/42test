@@ -1,0 +1,10 @@
+[{
+  "pk": 1,
+  "model": "t42cc.Person",
+  "fields": {
+    "name": "Mykola",
+    "surname": "Kharechko",
+    "bio": "my bio",
+    "contacts": "no contacts"
+  }
+}]

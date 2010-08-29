@@ -15,6 +15,6 @@ class T42ccTests(TestCase):
         """
         persons = Person.objects.filter(name='Mykola', surname='Kharechko')
         self.assertEqual(len(persons), 1)
-        person = persons.pop()
+        person = persons.get()
         self.assertEqual(person.bio, 'my bio')
         self.assertEqual(person.contacts, 'no contacts')
