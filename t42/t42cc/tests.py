@@ -2,6 +2,8 @@
 """
 
 from django.test import TestCase
+from django.test.client import Client
+
 
 from t42cc.models import Person
 
@@ -18,3 +20,11 @@ class T42ccTests(TestCase):
         person = persons.get()
         self.assertEqual(person.bio, 'my bio')
         self.assertEqual(person.contacts, 'no contacts')
+
+    def test_index_view(self):
+        """Funtional test for index view
+        """
+        client = Client()
+        response = client.get('/')
+        self.assertTrue('Mykola' in response.content)
+        self.assertTrue('Kharechko' in response.content)
