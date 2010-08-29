@@ -30,5 +30,15 @@ def edit(request):
         form = PersonForm(instance=person)
         return render_to_response('person_edit.html',
                    {'form': form}, context_instance=RequestContext(request))
-    return HttpResponseRedirect(reverse(index))
+    form = PersonForm(request.POST, instance=person)
+    errors = form.errors
+    if not errors:
+        try:
+            form.save()
+        except ValueError, err:
+            errors['__all__'] = unicode(err)
 
+    if errors:
+        return render_to_response('person_edit.html',
+                   {'form': form}, context_instance=RequestContext(request))
+    return HttpResponseRedirect(reverse(index))
