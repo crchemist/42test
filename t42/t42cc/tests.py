@@ -3,14 +3,17 @@
 
 from django.test import TestCase
 from django.test.client import Client
+from django.template import TemplateDoesNotExist
 
 
-from t42cc.models import Person
+from t42cc.models import Person, RequestModel
 
 
 class T42ccTests(TestCase):
     """General tests for t42cc application
     """
+    def setUp(self):
+        self.client = Client()
 
     def test_person_fixtures(self):
         """Test whether Person model is loaded from fixtures
@@ -24,7 +27,20 @@ class T42ccTests(TestCase):
     def test_index_view(self):
         """Funtional test for index view
         """
-        client = Client()
-        response = client.get('/')
+        response = self.client.get('/')
         self.assertTrue('Mykola' in response.content)
         self.assertTrue('Kharechko' in response.content)
+
+    def test_request_middleware(self):
+        """Tests for RequestMiddleware
+        """
+        good_path = '/'
+        self.client.get(good_path)
+        good_path_reqs = RequestModel.objects.filter(path=good_path)
+        self.assertTrue(good_path_reqs.count() > 0)
+
+        wrong_path = '/wrong_path'
+        self.assertRaises(TemplateDoesNotExist,
+                  self.client.get, wrong_path)
+        wrong_path_reqs = RequestModel.objects.filter(path=wrong_path)
+        self.assertTrue(wrong_path_reqs.count() > 0)
