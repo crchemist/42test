@@ -8,7 +8,6 @@ from django.conf import settings
 from django.http import HttpRequest
 from django.template import TemplateDoesNotExist, RequestContext
 
-
 from t42cc.models import Person, RequestModel
 
 
@@ -57,3 +56,22 @@ class T42ccTests(TestCase):
         #check for availability of django_settings attribute in context
         context = RequestContext(HttpRequest())
         self.assertTrue(context.get('django_settings') is not None)
+
+    def test_person_singleton(self):
+        """Test possiblity to create multiple Person entities
+        """
+        person_count = Person.objects.count()
+        self.assertEqual(person_count, 1)
+        p = Person(name='Ivan',
+                   surname='Ivanov',
+                   bio='bio',
+                   contacts='contacts')
+        p.save()
+        self.assertEqual(Person.objects.count(), person_count)
+
+        person = Person.objects.get()
+        self.assertEqual(person.name, 'Ivan')
+
+        person.delete()
+        person = Person.objects.get()
+        self.assertEqual(person.name, 'Ivan')
