@@ -2,4 +2,12 @@
 """
 from django.db import models
 
-# Create your models here.
+
+class Person(models.Model):
+    """Represent person's data
+    """
+
+    name = models.CharField(max_length=250)
+    surname = models.CharField(max_length=250)
+    bio = models.TextField()
+    contacts = models.TextField()
