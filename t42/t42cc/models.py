@@ -24,7 +24,6 @@ class Person(models.Model):
         pass
 
 
-
 class RequestModel(models.Model):
     """Store path of each request
     """
