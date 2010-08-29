@@ -10,4 +10,5 @@ class RequestMiddleware(object):
     def process_request(self, request):
         """Record request to database
         """
-        pass
+        entry = RequestModel(path=request.path)
+        entry.save()
