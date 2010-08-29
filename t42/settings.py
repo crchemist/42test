@@ -1,4 +1,5 @@
 # Django settings for t42 project.
+import django.conf.global_settings as DEFAULT_SETTINGS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -60,6 +61,9 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '8r3t3^2gr6w(2o_5vxch(s4309i!7ig6m)3!-s8tf1_7ny7k_#'
 
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    't42cc.context_processors.django_settings',
+)
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -75,6 +79,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     't42cc.middleware.RequestMiddleware',
 )
+
 
 ROOT_URLCONF = 't42.urls'
 

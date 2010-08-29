@@ -1,6 +1,8 @@
 """Definition of views
 """
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 
 from t42cc.models import Person
 
@@ -10,4 +12,4 @@ def index(request):
     """
     person = Person.objects.get()
     return render_to_response('person.html',
-                 {'person': person})
+                 {'person': person}, context_instance=RequestContext(request))
