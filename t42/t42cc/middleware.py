@@ -12,4 +12,4 @@ class RequestMiddleware(object):
         """
         entry = RequestModel(path=request.path)
         entry.save()
-        return None #pylint wants this
+        return None  # pylint wants this

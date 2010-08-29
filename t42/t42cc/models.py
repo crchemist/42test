@@ -18,7 +18,7 @@ class Person(models.Model):
         self.id = 1
         super(Person, self).save()
 
-    def delete(self):
+    def delete(self, *args):
         """Do nothing
         """
         pass
