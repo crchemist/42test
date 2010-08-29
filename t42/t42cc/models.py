@@ -12,8 +12,8 @@ class Person(models.Model):
     bio = models.TextField()
     contacts = models.TextField()
 
-class RequestModel(models.Model):
-   """
-   """
-   path = models.CharField(max_length=256)
 
+class RequestModel(models.Model):
+    """Store path of each request
+    """
+    path = models.CharField(max_length=256)
