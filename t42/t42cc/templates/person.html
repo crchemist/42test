@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Person Info</title>
-  </head>
-  <body>
-    <h1>{{person.name}} {{person.surname}}</h1>
-    <p><span>Bio:</span> {{person.bio}} </p>
-    <p><span>Contacts:</span> {{person.contacts}} </p>
-  </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{person.name}} {{person.surname}}</h1>
+  <p><span>Bio:</span> {{person.bio}} </p>
+  <p><span>Contacts:</span> {{person.contacts}}</p>
+{% endblock %}
+
