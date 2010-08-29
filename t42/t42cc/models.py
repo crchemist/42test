@@ -11,3 +11,9 @@ class Person(models.Model):
     surname = models.CharField(max_length=250)
     bio = models.TextField()
     contacts = models.TextField()
+
+class RequestModel(models.Model):
+   """
+   """
+   path = models.CharField(max_length=256)
+
