@@ -12,6 +12,18 @@ class Person(models.Model):
     bio = models.TextField()
     contacts = models.TextField()
 
+    def save(self):
+        """Implement Singleton pattern
+        """
+        self.id = 1
+        super(Person, self).save()
+
+    def delete(self):
+        """Do nothing
+        """
+        pass
+
+
 
 class RequestModel(models.Model):
     """Store path of each request
