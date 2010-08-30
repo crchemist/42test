@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 {% block content %}
   <h1>{{person.name}} {{person.surname}}</h1>
@@ -5,3 +6,25 @@
   <p><span>Contacts:</span> {{person.contacts}}</p>
 {% endblock %}
 
+=======
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Person Info</title>
+  </head>
+  <body>
+    <h1>{{person.name}} {{person.surname}}</h1>
+    <p><span>Bio:</span> {{person.bio}} </p>
+    <p><span>Contacts:</span> {{person.contacts}} </p>
+    <footer>
+        <p><span>Debug status:</span>
+          {% if django_settings.DEBUG %}
+            enabled
+          {% else %}
+            disabled
+          {% endif %}
+        </p>
+    </footer>
+  </body>
+</html>
+>>>>>>> t3_context_proc
