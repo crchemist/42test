@@ -10,7 +10,7 @@ class RequestMiddleware(object):
     def process_request(self, request):
         """Record request to database
         """
-        entry = RequestModel(path = request.path,
-                   username = request.user.username,
-                   method = request.method)
+        entry = RequestModel(path=request.path,
+                   username=request.user.username,
+                   method=request.method)
         entry.save()
