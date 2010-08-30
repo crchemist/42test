@@ -16,11 +16,13 @@ def index(request):
     return render_to_response('person.html',
                  {'person': person}, context_instance=RequestContext(request))
 
+
 class PersonForm(forms.ModelForm):
     """Form for Person model
     """
     class Meta:
         model = Person
+
 
 def edit(request):
     """/edit - Edit person information
