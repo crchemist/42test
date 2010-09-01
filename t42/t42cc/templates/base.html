@@ -2,8 +2,15 @@
 <html>
   <head>
     <title>Person Info</title>
+    <script src="http://code.jquery.com/jquery-1.4.2.js"></script> 
   </head>
   <body>
+    <nav>
+      <ul>
+        <li><a href="{%url t42cc.views.index%}">Person Info</a></li>
+        <li><a href="{%url t42cc.views.edit%}">Edit Info</a></li>
+      </ul>
+    </nav>
     {% block content %}
     {% endblock %}
   </body>
