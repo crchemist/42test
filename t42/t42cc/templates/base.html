@@ -2,10 +2,24 @@
 <html>
   <head>
     <title>Person Info</title>
+    <link rel='stylesheet' href='/static/css/style.css' />
+    <script src="/static/js/jquery-1.4.2.js"></script> 
   </head>
   <body>
-    {% block content %}
-    {% endblock %}
+    <div id="page-wrap">
+      <header>
+        <nav>
+          <ul class="group">
+            <li><a href="{%url t42cc.views.index%}">Person Info</a></li>
+            <li><a href="{%url t42cc.views.edit%}">Edit Info</a></li>
+          </ul>
+        </nav>
+      </header>
+      <section id="main-content">
+        {% block content %}
+        {% endblock %}
+      </section>
+    </div>
     <footer>
       <p><span>Debug status:</span>
         {% if django_settings.DEBUG %}
