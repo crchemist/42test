@@ -62,6 +62,8 @@ class T42ccTests(TestCase):
         self.assertTrue(context.get('django_settings') is not None)
 
     def test_edit_form(self):
+        """Tests for edit form
+        """
         get_resp = self.client.get(self.edit_view)
         self.assertEqual(get_resp.status_code, 200)
 
@@ -103,3 +105,12 @@ class T42ccTests(TestCase):
         person.delete()
         person = Person.objects.get()
         self.assertEqual(person.name, 'Ivan')
+
+    def test_request_model(self):
+        """Tests for models.RequestModel
+        """
+        req = RequestModel(path='/some/path',
+                 username='',
+                 method='GET')
+        req.save()
+        self.assertEqual(repr(req), req.path)
