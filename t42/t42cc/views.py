@@ -22,6 +22,10 @@ def index(request):
 class PersonForm(forms.ModelForm):
     """Form for Person model
     """
+    def __init__(self, *args, **kw):
+        super(forms.ModelForm, self).__init__(*args, **kw)
+        self.fields.keyOrder.reverse()
+
     class Meta:
         model = Person
         widgets = {

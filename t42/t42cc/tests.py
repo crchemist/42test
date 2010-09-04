@@ -133,3 +133,10 @@ class T42ccTests(TestCase):
                  method='GET')
         req.save()
         self.assertEqual(repr(req), '<RequestModel: %s>' % req.path)
+
+    def test_fields_order(self):
+        """Test fields order in PersonForm
+        """
+        form = views.PersonForm()
+        self.assertEqual(list(form.fields), ['contacts',
+              'bio', 'birth', 'surname', 'name'])
