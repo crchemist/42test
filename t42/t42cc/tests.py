@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import HttpRequest
 from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist, RequestContext
+from django.contrib.auth.models import User
 
 
 from t42cc import views
@@ -19,6 +20,11 @@ class T42ccTests(TestCase):
     """
     def setUp(self):
         self.client = Client()
+        self.username = 'admin'
+        self.password = 'passwd'
+        self.user = User.objects.create_user(self.username,
+                    'admin@example.com', self.password)
+        self.client.login(username='admin', password='admin')
         self.edit_view = reverse(views.edit)
 
     def test_person_fixtures(self):
@@ -64,6 +70,7 @@ class T42ccTests(TestCase):
     def test_edit_form(self):
         """Tests for edit form
         """
+        self.client.login(username='admin', password='admin')
         get_resp = self.client.get(self.edit_view)
         self.assertEqual(get_resp.status_code, 200)
 
@@ -113,4 +120,4 @@ class T42ccTests(TestCase):
                  username='',
                  method='GET')
         req.save()
-        self.assertEqual(repr(req), req.path)
+        self.assertEqual(repr(req), '<RequestModel: %s>'%req.path)
