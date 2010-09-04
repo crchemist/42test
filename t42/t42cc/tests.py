@@ -83,3 +83,23 @@ class T42ccTests(TestCase):
         self.assertEqual(person.surname, 'Petrov')
         self.assertEqual(person.bio, 'Ivan"s bio')
         self.assertEqual(person.contacts, 'ivan@gmail.com')
+
+    def test_person_singleton(self):
+        """Test possiblity to create multiple Person entities
+        """
+        person_count = Person.objects.count()
+        self.assertEqual(person_count, 1)
+
+        person = Person(name='Ivan',
+                   surname='Ivanov',
+                   bio='bio',
+                   contacts='contacts')
+        person.save()
+        self.assertEqual(Person.objects.count(), person_count)
+
+        person = Person.objects.get()
+        self.assertEqual(person.name, 'Ivan')
+
+        person.delete()
+        person = Person.objects.get()
+        self.assertEqual(person.name, 'Ivan')
