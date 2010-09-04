@@ -29,7 +29,6 @@ class PersonForm(forms.ModelForm):
         }
 
 
-
 @login_required
 def edit(request):
     """/edit - Edit person information
