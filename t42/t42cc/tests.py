@@ -24,7 +24,8 @@ class T42ccTests(TestCase):
         self.password = 'passwd'
         self.user = User.objects.create_user(self.username,
                     'admin@example.com', self.password)
-        self.client.login(username='admin', password='admin')
+        self.client.login(username=self.username,
+                          password=self.password)
         self.edit_view = reverse(views.edit)
 
     def test_person_fixtures(self):
@@ -70,7 +71,6 @@ class T42ccTests(TestCase):
     def test_edit_form(self):
         """Tests for edit form
         """
-        self.client.login(username='admin', password='admin')
         get_resp = self.client.get(self.edit_view)
         self.assertEqual(get_resp.status_code, 200)
 
@@ -92,6 +92,18 @@ class T42ccTests(TestCase):
         self.assertEqual(person.surname, 'Petrov')
         self.assertEqual(person.bio, 'Ivan"s bio')
         self.assertEqual(person.contacts, 'ivan@gmail.com')
+
+    def test_edit_form_auth(self):
+        """Test permissions to edit person info
+        """
+        self.client.logout()
+        anon_resp = self.client.get(self.edit_view)
+        self.assertNotEqual(anon_resp.status_code, 200)
+
+        self.client.login(username=self.username,
+                    password=self.password)
+        user_resp = self.client.get(self.edit_view)
+        self.assertEqual(user_resp.status_code, 200)
 
     def test_person_singleton(self):
         """Test possiblity to create multiple Person entities
@@ -120,4 +132,4 @@ class T42ccTests(TestCase):
                  username='',
                  method='GET')
         req.save()
-        self.assertEqual(repr(req), '<RequestModel: %s>'%req.path)
+        self.assertEqual(repr(req), '<RequestModel: %s>' % req.path)
