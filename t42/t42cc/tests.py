@@ -32,7 +32,7 @@ class T42ccTests(TestCase):
         """Test whether calendar.js is included
         """
         edit_form_resp = self.client.get(self.edit_view)
-        self.assertTrue('calendar.js' in edit_form_resp)
+        self.assertTrue('calendar.js' in edit_form_resp.content)
 
     def test_person_fixtures(self):
         """Test whether Person model is loaded from fixtures
