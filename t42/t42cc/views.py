@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from t42cc.models import Person
+from t42cc.widgets import CalendarWidget
 
 
 def index(request):
@@ -23,6 +24,10 @@ class PersonForm(forms.ModelForm):
     """
     class Meta:
         model = Person
+        widgets = {
+             'birth': CalendarWidget(),
+        }
+
 
 
 @login_required

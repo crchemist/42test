@@ -9,6 +9,7 @@ class Person(models.Model):
 
     name = models.CharField(max_length=250)
     surname = models.CharField(max_length=250)
+    birth = models.CharField(max_length=12, blank=True, null=True)
     bio = models.TextField()
     contacts = models.TextField()
 
