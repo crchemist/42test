@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 from t42cc.models import Person
 
@@ -24,6 +25,7 @@ class PersonForm(forms.ModelForm):
         model = Person
 
 
+@login_required
 def edit(request):
     """/edit - Edit person information
     """
