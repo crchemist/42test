@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block media %}
+  {{ form.media }}
+{% endblock %}
 {% block content %}
   <form action="{%url t42cc.views.edit%}" method="post">
     {% csrf_token %}
