@@ -6,8 +6,11 @@ from django.test.client import Client
 
 from django.conf import settings
 from django.http import HttpRequest
+from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist, RequestContext
 
+
+from t42cc import views
 from t42cc.models import Person, RequestModel
 
 
@@ -16,6 +19,7 @@ class T42ccTests(TestCase):
     """
     def setUp(self):
         self.client = Client()
+        self.edit_view = reverse(views.edit)
 
     def test_person_fixtures(self):
         """Test whether Person model is loaded from fixtures
@@ -57,21 +61,25 @@ class T42ccTests(TestCase):
         context = RequestContext(HttpRequest())
         self.assertTrue(context.get('django_settings') is not None)
 
-    def test_person_singleton(self):
-        """Test possiblity to create multiple Person entities
-        """
-        person_count = Person.objects.count()
-        self.assertEqual(person_count, 1)
-        p = Person(name='Ivan',
-                   surname='Ivanov',
-                   bio='bio',
-                   contacts='contacts')
-        p.save()
-        self.assertEqual(Person.objects.count(), person_count)
+    def test_edit_form(self):
+        get_resp = self.client.get(self.edit_view)
+        self.assertEqual(get_resp.status_code, 200)
+
+        bad_post_resp = self.client.post(self.edit_view,
+                                {'name': 'Mykola'})
+        self.assertTrue('This field is required' in bad_post_resp.content)
+
+        good_post_resp = self.client.post(self.edit_view,
+                                {'name': 'Ivan',
+                                 'surname': 'Petrov',
+                                 'bio': 'Ivan"s bio',
+                                 'contacts': 'ivan@gmail.com'})
+
+        # redirect to index page
+        self.assertEqual(good_post_resp.status_code, 302)
 
         person = Person.objects.get()
         self.assertEqual(person.name, 'Ivan')
-
-        person.delete()
-        person = Person.objects.get()
-        self.assertEqual(person.name, 'Ivan')
+        self.assertEqual(person.surname, 'Petrov')
+        self.assertEqual(person.bio, 'Ivan"s bio')
+        self.assertEqual(person.contacts, 'ivan@gmail.com')
