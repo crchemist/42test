@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Please login</h1>
+  {% if form.errors %}
+    <p>Incorrect username or password. Please try yet one time</p>
+  {% endif %}
+
+  <form method="post" action="{% url django.contrib.auth.views.login %}">
+    {% csrf_token %}
+    <p>
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      <span>Enter your username</span>
+    </p>
+    <p> 
+      {{ form.password.label_tag }}
+      {{ form.password }}
+      <span>Enter your password</span>
+    </p>
+    <p> 
+      <input type="submit" value="Login" />
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      {% else %}
+        <input type="hidden" name="next" value="/" />
+      {% endif %}
+    </p>
+  </form>
+{% endblock %}

@@ -2,6 +2,9 @@
 	 CSS-Tricks Example
 	 by Chris Coyier
 	 http://css-tricks.com
+
+     Modified
+     by Mykola Kharechko
 */
 
 * { margin: 0; padding: 0; }
@@ -14,7 +17,7 @@ article, aside, figure, footer, header, hgroup, menu, nav, section { display: bl
 a:focus { outline: 0; }
 
 #page-wrap { 
-    width: 500px; margin: 40px auto 5px; background: #91c7ff; 
+    width: 600px; margin: 40px auto 5px; background: #91c7ff; 
     padding: 8px;
     background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
 	background: -moz-linear-gradient(top,  #eee,  #ccc);
@@ -28,7 +31,7 @@ h1 { font: bold 32px Helvetica, Arial, Sans-Serif; letter-spacing: -1px; padding
 p { margin: 0 0 15px 0; }
  
 nav ul { 
-    list-style: none; background: #154c85; padding: 5px 20px; width: 478px; position: relative; 
+    list-style: none; background: #154c85; padding: 5px 20px; width: 577px; position: relative; 
     left: -9px;
 }
 nav ul li { display: inline; }
@@ -67,4 +70,47 @@ nav ul li a:active, nav ul li a.current {
 	top: 1px; 
 }
 
+#loging {
+    position: absolute;
+    right: 0;
+    text-align:right;
+}
+
 footer { color: #999; margin: 0 auto; width: 500px; }
+
+form {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 20px;
+    background-color: #FAFDFE;
+    border: 1px solid #C9E8F3;
+}
+
+form p {
+    border-bottom: 1px dotted #ccc;
+    margin: 5px;
+    padding-bottom: 5px;
+}
+
+form p span {
+    color: #777777;
+    font-size: 80%;
+    font-style: italic;
+    padding-left: 10px;
+}
+
+form p:last-child {
+    border: none;
+}
+
+input[type="submit"] {
+    margin-left: 153px;
+    width: 185px;
+}
+
+label {
+    width: 130px;
+    display: inline-block;
+    padding: 0 10px;
+}   
+

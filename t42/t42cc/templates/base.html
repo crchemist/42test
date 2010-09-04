@@ -12,6 +12,11 @@
           <ul class="group">
             <li><a href="{%url t42cc.views.index%}">Person Info</a></li>
             <li><a href="{%url t42cc.views.edit%}">Edit Info</a></li>
+            {% if user.is_anonymous %}</h1>
+              <li><a href="{% url django.contrib.auth.views.login %}" id="loging">Login</a></li>
+            {% else %}
+              <li><a href="{% url django.contrib.auth.views.logout_then_login %}" id="loging">Logout</a></li>
+            {% endif %}
           </ul>
         </nav>
       </header>
