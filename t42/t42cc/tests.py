@@ -28,6 +28,12 @@ class T42ccTests(TestCase):
                           password=self.password)
         self.edit_view = reverse(views.edit)
 
+    def test_calendar_widget(self):
+        """Test whether calendar.js is included
+        """
+        edit_form_resp = self.client.get(self.edit_view)
+        self.assertTrue('calendar.js' in edit_form_resp)
+
     def test_person_fixtures(self):
         """Test whether Person model is loaded from fixtures
         """
