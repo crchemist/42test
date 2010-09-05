@@ -1,9 +1,11 @@
+"""t42cc tags library
+"""
 from django import template
-from django.contrib.admin import site
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 
 register = template.Library()
+
 
 def edit_link(obj):
     """Usage: {% edit_link some_obj %}

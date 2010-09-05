@@ -152,4 +152,5 @@ class T42ccTests(TestCase):
         """Test 'edit_link' tag
         """
         person = Person.objects.get()
-        self.assertEqual(t42tags.edit_link(person), '/admin/t42cc/person/%s/'%person.id)
+        self.assertEqual(t42tags.edit_link(person),
+                  '/admin/t42cc/person/%s/' % person.id)
