@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 
 from t42cc import views
 from t42cc.models import Person, RequestModel
+from t42cc.templatetags import t42tags
 
 
 class T42ccTests(TestCase):
@@ -146,3 +147,9 @@ class T42ccTests(TestCase):
         form = views.PersonForm()
         self.assertEqual(list(form.fields), ['contacts',
               'bio', 'birth', 'surname', 'name'])
+
+    def test_edit_link_tag(self):
+        """Test 'edit_link' tag
+        """
+        person = Person.objects.get()
+        self.assertEqual(t42tags.edit_link(person), '/admin/t42cc/person/%s/'%person.id)
