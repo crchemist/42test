@@ -16,6 +16,14 @@ body { font: 12px/1.4 Helvetica, sans-serif; background: #333; color: #333; }
 article, aside, figure, footer, header, hgroup, menu, nav, section { display: block; }
 a:focus { outline: 0; }
 
+.person {
+  display: inline-block;
+}
+
+.edit-link {
+  vertical-align:top;
+}
+
 #page-wrap { 
     width: 600px; margin: 40px auto 5px; background: #91c7ff; 
     padding: 8px;

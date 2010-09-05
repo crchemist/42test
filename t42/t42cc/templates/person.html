@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% load t42tags %}
 {% block content %}
-  <h1>{{person.name}} {{person.surname}}</h1>
+  <h1 class="person">{{person.name}} {{person.surname}}</h1>
+    {% if user.is_superuser %}
+      <a class="edit-link" href="{%edit_link person%}">Edit(admin ui)</a>
+    {% endif %}
   <p><span>Bio:</span> {{person.bio}} </p>
   <p><span>Contacts:</span> {{person.contacts}}</p>
 {% endblock %}
