@@ -1,7 +1,7 @@
 """Print all models names and number of entiries of each model
 """
 from django.core.management.base import BaseCommand, CommandError
-from django.db import models, router, DEFAULT_DB_ALIAS
+from django.db import models
 
 
 class Command(BaseCommand):
@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def __format_output(self, col1, col2):
         """All output formatting stuff must be placed here
         """
-        return '%-50s%-20s'%(col1, col2)
+        return '%-50s%-20s' % (col1, col2)
 
     def __print(self, model_name, entries_count):
         print self.__format_output(model_name, entries_count)

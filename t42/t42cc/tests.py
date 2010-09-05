@@ -9,7 +9,7 @@ from django.http import HttpRequest
 from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist, RequestContext
 from django.contrib.auth.models import User
-
+from django.core.management import get_commands
 
 from t42cc import views
 from t42cc.models import Person, RequestModel
@@ -154,3 +154,8 @@ class T42ccTests(TestCase):
         person = Person.objects.get()
         self.assertEqual(t42tags.edit_link(person),
                   '/admin/t42cc/person/%s/' % person.id)
+
+    def test_printmodels_command(self):
+        """Test django-admin.py printmodels command
+        """
+        self.assertTrue(get_commands().get('printmodels'))
