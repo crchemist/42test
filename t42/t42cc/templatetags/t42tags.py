@@ -11,9 +11,9 @@ class AdminLinkNode(template.Node):
     def render(self, context):
         return repr(self.obj)
 
-def edit_link(token):
+def edit_link(obj):
     """Usage: {% edit_link some_obj %}
     """
-    return AdminLinkNode(token)
+    return AdminLinkNode(obj)
 
 register.simple_tag(edit_link)
