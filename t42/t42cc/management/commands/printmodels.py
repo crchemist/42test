@@ -1,6 +1,6 @@
 """Print all models names and number of entiries of each model
 """
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import models
 
 
@@ -15,6 +15,8 @@ class Command(BaseCommand):
         return '%-50s%-20s' % (col1, col2)
 
     def __print(self, model_name, entries_count):
+        """Format and print data to screen
+        """
         print self.__format_output(model_name, entries_count)
 
     def handle(self, *args, **options):
