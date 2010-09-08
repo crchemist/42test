@@ -1,6 +1,8 @@
 """Models definition.
 """
 from django.db import models
+from django.db.models import signals
+from django.contrib.admin.models import LogEntry
 
 
 class Person(models.Model):
@@ -34,3 +36,26 @@ class RequestModel(models.Model):
 
     def __unicode__(self):
         return self.path
+
+
+class LogModelModification(LogEntry):
+    """Store information about models modifications.
+    """
+
+
+def log_modify(sender, instance, **kwargs):
+    """Create LogModelModification entry each time
+    any model is modified.
+    """
+    pass
+
+
+def log_delete(sender, instance, **kwargs):
+    """Create LogModelModification entry each time
+    any entry is deleted.
+    """
+    pass
+
+
+signals.post_save.connect(log_modify)
+signals.post_delete.connect(log_delete)
