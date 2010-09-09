@@ -163,7 +163,5 @@ class T42ccTests(TestCase):
     def test_modifications_log(self):
         """Test model modification logging facility
         """
-        before_req = LogModelModification.objects.count()
-        self.client.get('/')  # one entry of RequestModel was created
-        after_req = LogModelModification.objects.count()
-        self.assertEqual(before_req, after_req + 1)
+        # TODO: write normal tests
+        self.assertEqual(1, 2)
