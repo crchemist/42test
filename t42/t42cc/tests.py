@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.core.management import get_commands
 
 from t42cc import views
-from t42cc.models import Person, RequestModel
+from t42cc.models import Person, RequestModel, LogModelModification
 from t42cc.templatetags import t42tags
 
 
@@ -159,3 +159,11 @@ class T42ccTests(TestCase):
         """Test django-admin.py printmodels command
         """
         self.assertTrue(get_commands().get('printmodels'))
+
+    def test_modifications_log(self):
+        """Test model modification logging facility
+        """
+        before_req = LogModelModification.objects.count()
+        self.client.get('/')  # one entry of RequestModel was created
+        after_req = LogModelModification.objects.count()
+        self.assertEqual(before_req, after_req + 1)
