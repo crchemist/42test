@@ -48,6 +48,13 @@ class LogModelModification(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
 
+    class Meta:
+        """Metaclass for creating LogModelModification classes
+        """
+        verbose_name = 'log entry'
+        ordering = ('-action_time',)
+
+
 
 def log_modify(sender, instance, created, **kwargs):
     """Create LogModelModification entry each time

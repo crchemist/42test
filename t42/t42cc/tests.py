@@ -163,5 +163,14 @@ class T42ccTests(TestCase):
     def test_modifications_log(self):
         """Test model modification logging facility
         """
-        # TODO: write normal tests
-        self.assertEqual(1, 2)
+        # for testing LogModelModification I will use RequestModel entry
+        # test object creation
+
+
+        # test object modification
+
+        # test object removing
+
+        # test MolgModelModification entry deleting
+        # models.log_delete if clause at line 82
+
