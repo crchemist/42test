@@ -5,9 +5,11 @@ from django.test import TestCase
 from django.test.client import Client
 
 from django.conf import settings
+from django.contrib.admin.models import ADDITION, CHANGE, DELETION
 from django.http import HttpRequest
 from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist, RequestContext
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.core.management import get_commands
 
@@ -165,12 +167,36 @@ class T42ccTests(TestCase):
         """
         # for testing LogModelModification I will use RequestModel entry
         # test object creation
+        entry = RequestModel(path='/fake_rq', username='t1', method='GET')
+        entry.save()
+        entry_ct = ContentType.objects.get_for_model(entry)
+
+        log_entry = LogModelModification.objects.filter(
+                     object_id=entry.id, content_type=entry_ct).get()
+
+        self.assertEqual(log_entry.action_flag, ADDITION)
 
 
         # test object modification
+        entry.path = '/other_fake_path'
+        entry.save()
+
+        log_entries = LogModelModification.objects.filter(
+            object_id=entry.id, content_type=entry_ct)
+
+        self.assertEqual(log_entries[0].action_flag, CHANGE)
 
         # test object removing
+        entry.delete()
+        log_entry = LogModelModification.objects.filter(
+            object_id=entry.id, content_type=entry_ct)
+        self.assertEqual(log_entries[0].action_flag, DELETION)
 
         # test MolgModelModification entry deleting
         # models.log_delete if clause at line 82
-
+        log_entries_count = LogModelModification.objects.count()
+        log_entry = LogModelModification.objects.all()[0]
+        log_entry.delete()
+        last_record = LogModelModification.objects.all()[0]
+        self.assertNotEqual(last_record.content_type,
+                ContentType.objects.get_for_model(LogModelModification))

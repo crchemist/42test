@@ -85,7 +85,7 @@ def log_delete(sender, instance, **kwargs):
     from django.contrib.admin.models import DELETION
 
     obj_ct = ContentType.objects.get_for_model(sender)
-    obj_id = instance.pk
+    obj_id = instance.id if hasattr(instance, 'id') else None
     LogModelModification.objects.create(content_type=obj_ct,
                           object_id=obj_id,
                           object_repr=repr(instance),
