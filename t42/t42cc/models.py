@@ -102,4 +102,5 @@ def log_delete(sender, instance, **kwargs):
                           action_flag=DELETION)
 
 
+signals.post_save.connect(log_modify)
 signals.post_delete.connect(log_delete)
