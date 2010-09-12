@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load t42tags %}
+{% block content %}
+  <h1>Last Requests</h1>
+  <table>
+    <tr>
+      <th>Path</th>
+      <th>Method</th>
+      <th>Username</th>
+      <th>Request Time</th>
+   </tr>
+    {% for req in requests %}
+      <tr>
+        <td>{{req.path}}</td>
+        <td>{{req.method}}</td>
+        <td>{{req.username}}</td>
+        <td>{{req.request_time}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

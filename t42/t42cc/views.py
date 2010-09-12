@@ -9,8 +9,10 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-from t42cc.models import Person
+from t42cc.models import Person, RequestModel
 from t42cc.widgets import CalendarWidget
+
+REQUESTS_TO_SHOW = 10
 
 
 def index(request):
@@ -70,3 +72,12 @@ def edit(request):
         else:
             return render_to_response('person_edit.html',
                    {'form': form}, context_instance=RequestContext(request))
+
+
+def show_requests(request):
+    """Return first 10 requests stored in RequestModel table
+    """
+    last_requests = RequestModel.objects.all()[:REQUESTS_TO_SHOW]
+    return render_to_response('show_requests.html',
+                   {'requests': last_requests},
+                   context_instance=RequestContext(request))

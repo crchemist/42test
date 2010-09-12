@@ -30,6 +30,7 @@ class T42ccTests(TestCase):
         self.client.login(username=self.username,
                           password=self.password)
         self.edit_view = reverse(views.edit)
+        self.show_requests_view = reverse(views.show_requests)
 
     def test_calendar_widget(self):
         """Test whether calendar.js is included
@@ -199,3 +200,20 @@ class T42ccTests(TestCase):
         last_record = LogModelModification.objects.all()[0]
         self.assertNotEqual(last_record.content_type,
                 ContentType.objects.get_for_model(LogModelModification))
+
+    def test_show_requests(self):
+        """
+        """
+        # remove all previous requests
+        RequestModel.objects.all().delete()
+
+        # test to request page with less then 10 stored requests
+        resp = self.client.get(self.show_requests_view)
+        self.assertEqual(resp.status_code, 200)
+
+        # test to request page with more then 10 stored requests
+        for i in range(11):
+            self.client.get('/')
+        resp = self.client.get(self.show_requests_view)
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(self.show_requests_view in resp.content)

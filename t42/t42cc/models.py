@@ -35,6 +35,12 @@ class RequestModel(models.Model):
     path = models.CharField(max_length=256)
     username = models.CharField(max_length=256, blank=True)
     method = models.CharField(max_length=256)
+    request_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """Metaclass for creating RequestModel class
+        """
+        ordering = ('-request_time', )
 
     def __unicode__(self):
         return self.path
@@ -50,7 +56,7 @@ class LogModelModification(models.Model):
     action_flag = models.PositiveSmallIntegerField()
 
     class Meta:
-        """Metaclass for creating LogModelModification classes
+        """Metaclass for creating LogModelModification class
         """
         verbose_name = 'log entry'
         ordering = ('-action_time',)
