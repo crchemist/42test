@@ -1,11 +1,57 @@
 {% extends "base.html" %}
 {% block media %}
   {{ form.media }}
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var options = {
+        dataType: 'json',
+        beforeSubmit: beforeForm,
+        success: processJson
+      };
+      $('#edit_form').submit(function () {
+        $(this).ajaxSubmit(options);
+        return false;
+      })
+    });
+
+    function beforeForm() {
+      // disable form inputs
+      $("#edit_form input").attr('disabled', 'disabled');
+      $("#edit_form textarea").attr('disabled', 'disabled');
+
+      $(".errorlist").remove(); // get rid of any old errors
+      $("#emsg").fadeOut("slow"); // get rid of the main error message
+      return true;
+    }
+
+    function processJson(data) {
+      var e_msg = "Ajax error: no data received. ";
+      if (data) {
+        e_msg = "Data updated, thank you.";
+        data = eval(data)
+        if (data.bad) {
+          e_msg = "Please check your form";
+          errors = data.errs;
+          $.each(errors, function(fieldname, errmsg) {
+            id = "#id_" + fieldname;
+            $(id).parent().before(errmsg);
+          });
+        }
+      }
+      $("#emsg").text(e_msg).fadeIn("slow")
+      $("#edit_form input").attr('disabled', false);
+      $("#edit_form textarea").attr('disabled', false);
+    }
+  </script>
+
 {% endblock %}
 {% block content %}
-  <form action="{%url t42cc.views.edit%}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Edit">
+  <div id="emsg">&nbsp;</div>
+  <form id="edit_form" action="{%url t42cc.views.edit%}"
+        method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Edit">
   </form>
 {% endblock %}

@@ -1,3 +1,6 @@
+"""Contains django_settings context processor which add project
+settings to template context
+"""
 from django.conf import settings
 
 

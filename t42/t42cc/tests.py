@@ -176,7 +176,6 @@ class T42ccTests(TestCase):
 
         self.assertEqual(log_entry.action_flag, ADDITION)
 
-
         # test object modification
         entry.path = '/other_fake_path'
         entry.save()

@@ -56,7 +56,7 @@ class LogModelModification(models.Model):
         ordering = ('-action_time',)
 
     def __unicode__(self):
-        """Represent entry in django.contib.admin and other places 
+        """Represent entry in django.contib.admin and other places
         """
         action_str = 'Unknown action'
         if self.action_flag == ADDITION:
@@ -75,8 +75,6 @@ def log_modify(sender, instance, created, **kwargs):
     if sender is LogModelModification:
         return
 
-    from django.contrib.admin.models import CHANGE
-
     obj_ct = ContentType.objects.get_for_model(sender)
     obj_id = instance.pk
     action_flag = ADDITION if created else CHANGE
@@ -92,7 +90,6 @@ def log_delete(sender, instance, **kwargs):
     """
     if sender is LogModelModification:
         return
-
 
     obj_ct = ContentType.objects.get_for_model(sender)
     obj_id = instance.id if hasattr(instance, 'id') else None
