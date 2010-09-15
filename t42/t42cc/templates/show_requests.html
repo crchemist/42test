@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 {% load t42tags %}
+{% block media %}
+
+  <link rel="stylesheet" href="/static/tablesorter-theme/style.css" />
+  <script src="/static/js/jquery.tablesorter.js"></script> 
+  <script src="/static/js/show_requests.js"></script> 
+
+{% endblock %}
 {% block content %}
   <h1>Last Requests</h1>
-  <table>
-    <tr>
+  <table id="requests" class="tablesorter">
+    <thead>
+      <tr>
       <th>Path</th>
       <th>Method</th>
       <th>Username</th>
       <th>Request Time</th>
-   </tr>
-    {% for req in requests %}
+      </tr>
+   </thead>
+   <tbody>
+   {% for req in requests %}
       <tr>
         <td>{{req.path}}</td>
         <td>{{req.method}}</td>
@@ -17,5 +27,6 @@
         <td>{{req.request_time}}</td>
       </tr>
     {% endfor %}
+    </tbody>
   </table>
 {% endblock %}

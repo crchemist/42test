@@ -1,4 +1,4 @@
-/* Show datepicker for 'birth' field
+/* Show datepicker for 'id_birth' field
 */
 
 $(document).ready(function(){
