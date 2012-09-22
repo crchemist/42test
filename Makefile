@@ -1,5 +1,5 @@
 test:
-	./t42/manage.py test
+	./manage.py test
 
 syncdb:
-	./t42/manage.py syncdb
+	./manage.py syncdb
