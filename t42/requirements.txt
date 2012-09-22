@@ -2,3 +2,4 @@ Django
 coverage==3.5.1
 pylint==0.25.1
 unittest2==0.5.1
+django-test-coverage
