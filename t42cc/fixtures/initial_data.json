@@ -1,10 +1,14 @@
-[{
-  "pk": 1,
-  "model": "t42cc.Person",
-  "fields": {
-    "name": "Mykola",
-    "surname": "Kharechko",
-    "bio": "my bio",
-    "contacts": "no contacts"
-  }
-}]
+[
+    {
+        "pk": 1,
+        "model": "t42cc.person",
+        "fields": {
+            "bio": "Developer from Lviv, Ukraine.",
+            "contacts": "Facebook: mykola kharechko\nTwitter: crchemist",
+            "user": 1,
+            "birth": "10/06/2002",
+            "skype": "mykola_kharechko",
+            "jabber": "crchemist@gmail.com"
+        }
+    }
+]

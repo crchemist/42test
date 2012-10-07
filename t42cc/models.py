@@ -10,12 +10,26 @@ from django.contrib.auth.models import User
 class Person(models.Model):
     """Represent person's data
     """
+    def _get_user_field(self, name):
+        """Get field from User model.
+        """
+        return getattr(self.user, name)
 
-    name = models.CharField(max_length=250)
-    surname = models.CharField(max_length=250)
+    def _set_and_save_user_field(self, name, value):
+        """Set user field and save the changes.
+        """
+        setattr(self.user, name, value)
+        self.user.save()
+
+    user = models.OneToOneField(User)
+
     birth = models.CharField(max_length=12, blank=True, null=True)
     bio = models.TextField()
-    contacts = models.TextField()
+
+    email = property(_get_user_field, _set_and_save_user_field)
+    jabber = models.EmailField(blank=True)
+    skype = models.CharField(max_length=200, blank=True)
+    contacts = models.TextField(blank=True)
 
     def save(self):
         """Implement Singleton pattern

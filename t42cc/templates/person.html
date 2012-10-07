@@ -1,10 +1,26 @@
 {% extends "base.html" %}
 {% load t42tags %}
 {% block content %}
-  <h1 class="person">{{person.name}} {{person.surname}}</h1>
+  <h1 class="person">{{ person.user.first_name }} {{ person.user.last_name }}</h1>
     {% if user.is_superuser %}
-      <a class="edit-link" href="{%edit_link person%}">Edit(admin ui)</a>
+      <a class="edit-link" href="{% edit_link person %}">Edit(admin ui)</a>
     {% endif %}
-  <p><span>Bio:</span> {{person.bio}} </p>
-  <p><span>Contacts:</span> {{person.contacts}}</p>
+  <div id="left-column">
+      <p><span>Name:</span> {{ person.user.first_name }} </p>
+      <p><span>Last Name:</span> {{ person.user.last_name }}</p>
+      <p><span>Date of birth:</span> {{ person.birth }} </p>
+      <p><span>&nbsp;</span></p>
+      <p><span>Bio:</span></p>
+      <textarea readonly="readonly" rows="20" cols="30">{{ person.bio }}
+      </textarea>
+  </div>
+  <div id="right-column">
+      <p><span>Contacts:</span></p>
+      <p><span>Email:</span> {{ person.user.email }}</p>
+      <p><span>Skype:</span> {{ person.skype }}</p>
+      <p><span>Jabber:</span> {{ person.jabber }}</p>
+      <p><span>Other contacts:</span></p>
+      <textarea readonly="readonly" rows="20" cols="30">{{ person.contacts }}
+      </textarea>
+  </div>
 {% endblock %}
