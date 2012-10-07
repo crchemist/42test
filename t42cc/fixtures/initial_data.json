@@ -10,5 +10,24 @@
             "skype": "mykola_kharechko",
             "jabber": "crchemist@gmail.com"
         }
-    }
+    },
+    {
+            "pk": 1,
+            "model": "auth.user",
+            "fields": {
+                "username": "admin",
+                "first_name": "Mykola",
+                "last_name": "Kharechko",
+                "is_active": true,
+                "is_superuser": true,
+                "is_staff": true,
+                "last_login": "2012-10-07 17:41:12",
+                "groups": [],
+                "user_permissions": [],
+                "password": "sha1$8b8cf$1b8668b3b1b4f5e10bdbe1eecbbfa319dca59c5a",
+                "email": "a@a.ua",
+                "date_joined": "2012-10-07 17:28:33"
+            }
+        }
+
 ]
